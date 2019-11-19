@@ -1,6 +1,13 @@
 @extends('layout')
 
 @section('conteudo')
-<h1>Conteúdo</h1>
+<div class="main-panel">
+			<div class="content">
+                            <div class="page-inner">
+                                                              
+                                
+                            </div>
+                        </div>
+                </div>
 
 @stop

@@ -126,7 +126,7 @@
 							<div class="collapse" id="base">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="listarProdutos.html">
+                                                                            <a href="{{url('/')}}/produto">
 											<span class="sub-item">Listar</span>
 										</a>
 									</li>
@@ -208,24 +208,11 @@
 			</div>
 		</div>
                 
-                <div class="main-panel">
-			<div class="content">
-                            <div class="page-inner">
-                                                              
-                                
-                            </div>
-                        </div>
-                </div>
+                <!-- Conteúdo -->
+                
+                @yield('conteudo')
                 
 		<!-- End Sidebar -->
-                <div>
-                    <footer class="footer">
-                            <div class="container-fluid">
-                                <h4>CronoTime Todos os direitos reservados, copyright © 2019</h4>				
-                            </div>
-                    </footer>
-		</div>
-		
 		
 		<!-- End Custom template -->
 	</div>
