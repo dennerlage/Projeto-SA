@@ -13,7 +13,8 @@ class OperacaoController extends Controller
      */
     public function index()
     {
-        return view('operacao.index');
+        $operacoes = \App\Operacao::get();
+        return view('operacao.index', compact('operacoes'));
     }
 
     /**
@@ -34,7 +35,14 @@ class OperacaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $operacao = new \App\Operacao();
+        $operacao->OpeNom = $request->get('OpeNom');
+        $operacao->ProCod = $request->get('ProCod');
+        $operacao->OpeMaq = $request->get('OpeMaq');
+        $operacao->OpeTipEst = $request->get('OpeTipEst');
+        $operacao->OpeCro = $request->get('OpeCro');
+        $operacao->save();
+        return 'true';
     }
 
     /**
@@ -56,7 +64,8 @@ class OperacaoController extends Controller
      */
     public function edit($id)
     {
-         return view('operacao.edit');
+         $operacao = \App\Operacao::find($id);
+        return view('operacao.edit', compact('operacao'));
     }
 
     /**
@@ -68,7 +77,14 @@ class OperacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $operacao = \App\Operacao::find($id);
+        $operacao->OpeNom = $request->get('OpeNom');
+        $operacao->ProCod = $request->get('ProCod');
+        $operacao->OpeMaq = $request->get('OpeMaq');
+        $operacao->OpeTipEst = $request->get('OpeTipEst');
+        $operacao->OpeCro = $request->get('OpeCro');
+        $operacao->save();
+        return 'true';
     }
 
     /**
@@ -79,6 +95,8 @@ class OperacaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $operacao = \App\Operacao::find($id);
+        $operacao->delete();
+        return 'true';
     }
 }

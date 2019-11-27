@@ -1,6 +1,29 @@
 @extends('layout')  
 
-@section('conteudo')  
+@section('conteudo')
+<script>
+    function addProduto(url){
+    confirma = confirm('Deseja Cadastrar o Produto?');
+    dados = $('#formAdd').serialize();
+    if (confirma){
+    $.ajax({
+    method: 'post',
+            url: url,
+            data: dados,
+            dataType: 'html',
+            success: function (data){
+            alert('Produto Cadastrado com Sucesso!');
+            location.href = '/produto';
+            },
+            error: function (argument){
+            alert('Falha ao Cadastrar Produto!');
+            }
+    });
+    }
+
+    return false;
+ }
+</script>
             <div class="main-panel">
                 <div class="content">
                     <div class="page-inner">
@@ -8,7 +31,7 @@
                             <h4 class="page-title">Caminho</h4>
                             <ul class="breadcrumbs">
                                 <li class="nav-home">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <i class="flaticon-home"></i>
                                     </a>
                                 </li>
@@ -34,16 +57,19 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="pronom">Nome do Produto</label>
-                                                    <input maxlength="50" style="width: 405px" type="text" class="form-control" id="pronom" placeholder="Digite o nome do Produto">                                                    
+                                            <form action="" id="formAdd" onsubmit="return addProduto('{{route('produto.store')}}')">
+                                                @csrf
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="pronom">Nome do Produto</label>
+                                                        <input maxlength="50" style="width: 405px" type="text" class="form-control" id="ProNom" name="ProNom" placeholder="Digite o nome do Produto">                                                    
+                                                    </div>
+                                                    <div style="display: flex; margin-left: 10px">
+                                                        <button class="btn btn-success" type="submit">Cadastrar</button>
+                                                        <a href="{{url('/')}}/produto" class="btn btn-danger" style="margin-left: 5px">Voltar</a>
+                                                    </div>
                                                 </div>
-                                                <div style="display: flex; margin-left: 10px">
-                                                    <button class="btn btn-success">Cadastrar</button>
-                                                    <a href="index.html"><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

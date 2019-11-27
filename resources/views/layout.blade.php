@@ -131,7 +131,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="cadastrarProdutos.html">
+										<a href="{{url('/')}}/produto/create">
 											<span class="sub-item">Cadastrar</span>
 										</a>
 									</li>	
@@ -147,12 +147,12 @@
 							<div class="collapse" id="sidebarLayouts">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="listarOperacoes.html">
+										<a href="{{url('/')}}/operacao">
 											<span class="sub-item">Listar</span>
 										</a>
 									</li>
 									<li>
-										<a href="cadastrarOperacoes.html">
+										<a href="{{url('/')}}/operacao/create">
 											<span class="sub-item">Cadastrar</span>
 										</a>
 									</li>
@@ -188,12 +188,12 @@
 							<div class="collapse" id="maps">
 								<ul class="nav nav-collapse">
 									<li>
-										<a href="listarUsuarios.html">
+										<a href="{{url('/')}}/usuario">
 											<span class="sub-item">Listar</span>
 										</a>
 									</li>
                                                                         <li>
-										<a href="cadastrarUsuarios.html">
+										<a href="{{url('/')}}/usuario/create">
 											<span class="sub-item">Cadastrar</span>
 										</a>
 									</li>

@@ -1,6 +1,27 @@
 @extends('layout')  
 
 @section('conteudo')
+<script> 
+    function delUsuario(id, url){
+        confirma = confirm('Deseja Realmente Eliminar o Usuário?');
+        if(confirma){
+            dados = $('#' + id).serialize();
+            $.ajax({
+                method: 'post',
+                url: url,
+                data: dados,
+                dataType: 'html',
+                success: function (data){
+                    $('#linha' + id).remove();
+                    $('.data-original-title').remove();
+                },
+                error: function (argument){
+                    alert('Falha ao Eliminar Usuário!');
+                }
+            });
+        }
+    }
+</script>
 <div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -8,7 +29,7 @@
                         <h4 class="page-title">Caminho</h4>
                         <ul class="breadcrumbs">
                             <li class="nav-home">
-                                <a href="index.html">
+                                <a href="/">
                                     <i class="flaticon-home"></i>
                                 </a>
                             </li>
@@ -28,12 +49,10 @@
                     </div> 
                     <div class="col-md-12">
                         <div class="card">
-
                             <div class="card-header">
-
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Usuários</h4>
-                                    <a href="cadastrarUsuarios.html" class="btn btn-primary btn-round ml-auto" >
+                                    <a href="{{route('usuario.create')}}" class="btn btn-primary btn-round ml-auto" >
                                         <i class="fa fa-plus"></i>
                                         Adicionar Usuário
                                     </a>
@@ -46,26 +65,29 @@
                                             <tr>
                                                 <th>Código</th>
                                                 <th>Nome</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>System Architect</td>
-
+                                            @foreach($usuarios as $u)
+                                            <tr id="linhadel{{$u->UsuCod}}">
+                                                <td>{{$u->UsuCod}}</td>
+                                                <td>{{$u->UsuNom}}</td>
                                                 <td>
                                                     <div class="form-button-action" style="margin-left: 550px">
-                                                        <a href="editarUsuarios.html"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Usuário">
+                                                        <a href="{{route('usuario.edit', $u->UsuCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Usuário">
                                                             <i class="fa fa-edit"></i>
                                                         </button></a>
-                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Usuário">
+                                                        <button href="" onclick="return delUsuario('del{{$u->UsuCod}}', '{{route('usuario.destroy', $u->UsuCod)}}')" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Usuário">
                                                             <i class="fa fa-times"></i>
                                                         </button>
+                                                        <form action="" id="del{{$u->UsuCod}}" method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
-
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

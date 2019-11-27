@@ -13,7 +13,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return view('produto.index');
+        $produtos = \App\Produto::get();
+        return view('produto.index', compact('produtos'));
     }
 
     /**
@@ -34,7 +35,10 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produto = new \App\Produto();
+        $produto->ProNom = $request->get('ProNom');
+        $produto->save();
+        return 'true';
     }
 
     /**
@@ -56,7 +60,8 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        return view('produto.edit');
+        $produto = \App\Produto::find($id);
+        return view('produto.edit', compact('produto'));
     }
 
     /**
@@ -68,7 +73,10 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $produto = \App\Produto::find($id);
+        $produto->ProNom = $request->get('ProNom');
+        $produto->save();
+        return "true";
     }
 
     /**
@@ -79,6 +87,8 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = \App\Produto::find($id);
+        $produto->delete();
+        return 'true';
     }
 }

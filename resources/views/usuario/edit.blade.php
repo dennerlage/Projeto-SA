@@ -1,6 +1,32 @@
 @extends('layout')  
 
 @section('conteudo')
+<script>
+    function updUsuario(url){
+    confirma = confirm('Deseja Realmente Atualizar o Usuário?');
+    dados = $('#formEdit').serialize();
+    if (confirma){
+    if ($('#UsuSen').val() == $('#UsuSen2').val()){
+    $.ajax({
+    method: 'post',
+            url: url,
+            data: dados,
+            dataType: 'html',
+            success: function (data){
+            location.href = '/usuario';
+            },
+            error: function (argument){
+            alert('Falha ao Atualizar Usuário!');
+            }
+    });
+    }else{
+        alert('Senhas não compatíveis');
+    }
+    }
+
+    return false;
+    }
+</script>
             <div class="main-panel">
                 <div class="content">
                     <div class="page-inner">
@@ -8,7 +34,7 @@
                             <h4 class="page-title">Caminho</h4>
                             <ul class="breadcrumbs">
                                 <li class="nav-home">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <i class="flaticon-home"></i>
                                     </a>
                                 </li>
@@ -40,24 +66,28 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="usunom">Nome Usuário</label>
-                                                    <input maxlength="50" style="width: 405px" type="text" class="form-control" id="usunom" placeholder="Digite o nome do Usuário">                                                    
+                                             <form action="" id="formEdit" method="post" onsubmit="return updUsuario('{{route('usuario.update', $usuario->UsuCod)}}')">
+                                                @csrf
+                                                @method('patch')
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="usunom">Nome Usuário</label>
+                                                        <input maxlength="50" style="width: 405px" value="{{$usuario->UsuNom}}" type="text" class="form-control" id="UsuNom" name="UsuNom" placeholder="Digite o nome do Usuário">                                                    
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ususen">Senha</label>
+                                                        <input maxlength="50" style="width: 115px" value="{{$usuario->UsuSen}}" type="password" class="form-control" id="UsuSen" name="UsuSen" placeholder="Senha">                                                    
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ususen">Confirmar Nova Senha</label>
+                                                        <input maxlength="50" style="width: 115px" value="{{$usuario->UsuSen}}" type="password" class="form-control" id="UsuSen2" name="UsuSen2" placeholder="Confirme">                                                    
+                                                    </div>
+                                                    <div style="display: flex; margin-left: 10px">
+                                                        <button class="btn btn-warning" type="submit">Editar</button>
+                                                        <a href="/" style="margin-left: 5px" class="btn btn-danger">Voltar</a>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="ususen">Senha</label>
-                                                    <input maxlength="50" style="width: 115px" type="password" class="form-control" id="ususen" placeholder="Senha">                                                    
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="ususen">Confirmar Senha</label>
-                                                    <input maxlength="50" style="width: 115px" type="password" class="form-control" id="ususen" placeholder="Confirme">                                                    
-                                                </div>
-                                                <div style="display: flex; margin-left: 10px">
-                                                    <button class="btn btn-warning">Editar</button>
-                                                    <a href="index.html"><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
-                                                </div>
-                                            </div>
+                                             </form>
                                         </div>
                                     </div>
                                 </div>

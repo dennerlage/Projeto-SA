@@ -1,6 +1,27 @@
 @extends('layout')  
 
-@section('conteudo')          
+@section('conteudo')  
+<script> 
+    function delOperacao(id, url){
+        confirma = confirm('Deseja Realmente Eliminar a Operação?');
+        if(confirma){
+            dados = $('#' + id).serialize();
+            $.ajax({
+                method: 'post',
+                url: url,
+                data: dados,
+                dataType: 'html',
+                success: function (data){
+                    $('#linha' + id).remove();
+                    $('.data-original-title').remove();
+                },
+                error: function (argument){
+                    alert('Falha ao Eliminar Operação!');
+                }
+            });
+        }
+    }
+</script>
             <div class="main-panel">
                 <div class="content">
                     <div class="page-inner">
@@ -8,7 +29,7 @@
                             <h4 class="page-title">Caminho</h4>
                             <ul class="breadcrumbs">
                                 <li class="nav-home">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <i class="flaticon-home"></i>
                                     </a>
                                 </li>
@@ -35,7 +56,7 @@
                                         <h4 class="card-title">Operações</h4>
                                             <div class="input-group">  
           
-                                                <a href="cadastrarOperacoes.html" class="btn btn-primary btn-round ml-auto" >
+                                                <a href="{{url('/')}}/operacao/create" class="btn btn-primary btn-round ml-auto" >
                                                     <i class="fa fa-plus"></i>
                                                     Adicionar Operação
                                                 </a>
@@ -56,26 +77,33 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>System Architect</td>
-                                                    <td>1</td>
-                                                    <td>System Architect</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-
+                                                @foreach ($operacoes as $o)
+                                                <tr id="linhadel{{$o->OpeCod}}">
+                                                    <td>{{$o->OpeCod}}</td>
+                                                    <td>{{$o->OpeNom}}</td>
+                                                    <td>{{$o->ProCod}}</td>
+                                                    <td>{{$o->OpeMaq}}</td>
+                                                    <td>{{$o->OpeTipEst}}</td>
+                                                    <td>{{$o->OpeCro}}</td>
                                                     <td>
                                                         <div class="form-button-action">
-                                                            <a href="editarOperacoes.html"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Operação">
+                                                            <a href="{{url('/')}}/elemento?cod={{$o->OpeCod}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Elementos">
+                                                                    <i class="fa fa"  style="color: yellowgreen"></i>
+                                                            </button></a>
+                                                            <a href="{{route('operacao.edit', $o->OpeCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Operação">
                                                                 <i class="fa fa-edit"></i>
                                                             </button></a>
-                                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Operação">
+                                                            <button onclick="return delOperacao('del{{$o->OpeCod}}', '{{route('operacao.destroy', $o->OpeCod)}}')" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Operação">
                                                                 <i class="fa fa-times"></i>
                                                             </button>
+                                                            <form action="" id="del{{$o->OpeCod}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')   
+                                                            </form>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

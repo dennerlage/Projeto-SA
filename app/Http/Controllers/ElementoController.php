@@ -13,7 +13,8 @@ class ElementoController extends Controller
      */
     public function index()
     {
-        //
+        $elementos = \App\Elemento::where('OpeCod', '=', $_GET['cod'])->get();
+        return view('elemento.index', compact('elementos'));
     }
 
     /**
@@ -79,6 +80,8 @@ class ElementoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $elemento = \App\Elemento::find($id);
+        $elemento->delete();
+        return 'true';
     }
 }

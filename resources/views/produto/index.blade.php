@@ -1,6 +1,29 @@
 @extends('layout')  
 
-@section('conteudo')            
+@section('conteudo')     
+<script> 
+    function delProduto(id, url){
+        confirma = confirm('Deseja Realmente Eliminar o Produto?');
+        if(confirma){
+            dados = $('#' + id).serialize();
+            $.ajax({
+                method: 'post',
+                url: url,
+                data: dados,
+                dataType: 'html',
+                success: function (data){
+                    $('#linha' + id).remove();
+                    $('.data-original-title').remove();
+                },
+                error: function (argument){
+                    alert('Falha ao Eliminar Produto!');
+                }
+            });
+        }
+    }
+</script>
+    
+
             <div class="main-panel">
                 <div class="content">
                     <div class="page-inner">
@@ -8,7 +31,7 @@
                             <h4 class="page-title">Caminho</h4>
                             <ul class="breadcrumbs">
                                 <li class="nav-home">
-                                    <a href="index.html">
+                                    <a href="/">
                                         <i class="flaticon-home"></i>
                                     </a>
                                 </li>
@@ -33,10 +56,9 @@
 
                                     <div class="d-flex align-items-center">
                                         <h4 class="card-title">Produtos</h4>
-                                        <a href="cadastrarProdutos.html" class="btn btn-primary btn-round ml-auto" >
+                                        <a href="{{route('produto.create')}}" class="btn btn-primary btn-round ml-auto" >
                                             <i class="fa fa-plus"></i>
                                             Adicionar Produto
-
                                         </a>
                                     </div>
                                 </div>
@@ -47,26 +69,29 @@
                                                 <tr>
                                                     <th>Código</th>
                                                     <th>Nome</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>System Architect</td>
-
+                                                @foreach ($produtos as $p)
+                                                <tr id="linhadel{{$p->ProCod}}">
+                                                    <td>{{$p->ProCod}}</td>
+                                                    <td>{{$p->ProNom}}</td>
                                                     <td>
                                                         <div class="form-button-action" style="margin-left: 550px">
-                                                            <a href="editarProdutos.html"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Produto">
+                                                            <a href="{{route('produto.edit', $p->ProCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Produto">
                                                                 <i class="fa fa-edit"></i>
                                                             </button></a>
-                                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Produto">
+                                                            <button href="" onclick="return delProduto('del{{$p->ProCod}}', '{{route('produto.destroy', $p->ProCod)}}')" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remover Produto">
                                                                 <i class="fa fa-times"></i>
                                                             </button>
+                                                            <form action="" id="del{{$p->ProCod}}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')   
+                                                            </form>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
