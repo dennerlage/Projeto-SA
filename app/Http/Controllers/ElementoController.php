@@ -13,8 +13,9 @@ class ElementoController extends Controller
      */
     public function index()
     {
+        $codigo = $_GET['cod'];
         $elementos = \App\Elemento::where('OpeCod', '=', $_GET['cod'])->get();
-        return view('elemento.index', compact('elementos'));
+        return view('elemento.index', compact('elementos', 'codigo'));
     }
 
     /**
@@ -24,7 +25,9 @@ class ElementoController extends Controller
      */
     public function create()
     {
-        return view('elemento.create');
+        // $codigo = $id;
+        $codigo = 1;
+        return view('elemento.create', compact('codigo'));
     }
 
     /**
@@ -35,7 +38,16 @@ class ElementoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $elemento = new \App\Elemento();
+        $elemento->EleNom = $request->get('EleNom');
+        $elemento->OpeCod = $request->get('OpeCod');
+        $elemento->EleRit = $request->get('EleRit');
+        $elemento->EleInt = $request->get('EleInt');
+        $elemento->EleCon = $request->get('EleCon');
+        $elemento->EleQtdVez = $request->get('EleQtdVez');
+        $elemento->ElePorPçs = $request->get('ElePorPçs');
+        $elemento->save();
+        return 'true';
     }
 
     /**
@@ -57,7 +69,8 @@ class ElementoController extends Controller
      */
     public function edit($id)
     {
-        return view('elemento.edit');
+        $elemento = \App\Elemento::find($id);
+        return view('elemento.edit', compact('elemento'));
     }
 
     /**
@@ -69,7 +82,15 @@ class ElementoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $elemento = \App\Elemento::find($id);
+        $elemento->EleNom = $request->get('EleNom');
+        $elemento->EleRit = $request->get('EleRit');
+        $elemento->EleInt = $request->get('EleInt');
+        $elemento->EleCon = $request->get('EleCon');
+        $elemento->EleQtdVez = $request->get('EleQtdVez');
+        $elemento->ElePorPçs = $request->get('ElePorPçs');
+        $elemento->save();
+        return 'true';
     }
 
     /**

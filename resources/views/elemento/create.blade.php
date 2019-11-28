@@ -1,7 +1,28 @@
 @extends('layout')  
 
 @section('conteudo')
-
+<script>
+    function addElemento(url) {
+        confirma = confirm('Deseja Cadastrar o Elemento?');
+        dados = $('#formAdd').serialize();
+        if (confirma) {
+            $.ajax({
+                method: 'post',
+                url: url,
+                data: dados,
+                dataType: 'html',
+                success: function (data) {
+                    alert('Elemento Cadastrado com Sucesso!');
+                    location.href = '{{url('/')}}/elemento?cod={{$codigo}}';
+                },
+                error: function (argument) {
+                    alert('Falha ao Cadastrar Elemento!');
+                }
+            });
+        }
+        return false;
+    }
+</script>
 <div class="main-panel">
     <div class="content">
         <div class="page-inner">
@@ -9,7 +30,7 @@
                 <h4 class="page-title">Caminho</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
-                        <a href="index.html">
+                        <a href="/">
                             <i class="flaticon-home"></i>
                         </a>
                     </li>
@@ -47,40 +68,40 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="openom">Nome do Elemento</label>
-                                        <input maxlength="50" style="width: 405px" type="text" class="form-control" id="openom" placeholder="Digite o nome do Elemento">                                                    
+                                <form action="" name="" id="formAdd" onsubmit="return addOperacao('{{route('elemento.store')}}')">
+                                    @csrf
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="openom">Nome do Elemento</label>
+                                            <input maxlength="50" style="width: 405px" type="text" class="form-control" name="EleNom" id="EleNom" placeholder="Digite o nome do Elemento">                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elerit">Ritmo</label>
+                                            <input style="width: 155px" type="number" class="form-control" name="EleRit" id="EleRit" placeholder="Digite a elerit">                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="eleint">EleInt</label>
+                                            <input style="width: 155px" type="text" class="form-control" name="EleInt" id="EleInt" placeholder="Digite EleInt">                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elecon">EleCon</label>
+                                            <input style="width: 155px" type="text" class="form-control" name="EleCon" id="EleCon" placeholder="Digite EleCon">                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="eleqtdvez">Quantidade de Vezes</label>
+                                            <input style="width: 155px" type="text" class="form-control" name="EleQtdVez" id="EleQtdVez" placeholder="Digite Qtd.">                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="eleporpçs">Peças</label>
+                                            <input style="width: 155px" type="text" class="form-control" name="ElePorPçs" id="ElePorPçs" placeholder="Digite Peças">                                                    
+                                        </div>
+                                        <input type="hidden" name="OpeCod" value="{{$codigo}}">
+                                        <div style="display: flex; margin-left: 10px">
+                                            <button class="btn btn-success" type="submit">Cadastrar</button>
+                                            <a href="{{url('/')}}/elemento?cod={{$codigo}}"><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="opecod">Código Operação</label>
-                                        <input style="width: 155px" type="number" class="form-control" id="opecod" placeholder="Digite a Op.">                                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="elerit">Ritmo</label>
-                                        <input style="width: 155px" type="number" class="form-control" id="elerit" placeholder="Digite a elerit">                                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="eleint">EleInt</label>
-                                        <input style="width: 155px" type="text" class="form-control" id="eleint" placeholder="Digite EleInt">                                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="elecon">EleCon</label>
-                                        <input style="width: 155px" type="text" class="form-control" id="elecon" placeholder="Digite EleCon">                                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="eleqtdvez">Quantidade de Vezes</label>
-                                        <input style="width: 155px" type="text" class="form-control" id="eleqtdvez" placeholder="Digite Qtd.">                                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="eleporpçs">Peças</label>
-                                        <input style="width: 155px" type="text" class="form-control" id="eleporpçs" placeholder="Digite Peças">                                                    
-                                    </div>
-                                    <div style="display: flex; margin-left: 10px">
-                                        <button class="btn btn-success">Cadastrar</button>
-                                        <a href=""><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

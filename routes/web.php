@@ -15,7 +15,6 @@
 Route::get('/', 'IndexController@index');
 Route::get('/cronometragem', 'CronometragemController@index');
 
-
 //CRUD's 
 Route::resource('operacao', 'OperacaoController');
 Route::resource('usuario', 'UsuarioController');

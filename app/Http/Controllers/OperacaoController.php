@@ -64,7 +64,7 @@ class OperacaoController extends Controller
      */
     public function edit($id)
     {
-         $operacao = \App\Operacao::find($id);
+        $operacao = \App\Operacao::find($id);
         return view('operacao.edit', compact('operacao'));
     }
 

@@ -88,7 +88,7 @@
                                                     <td>
                                                         <div class="form-button-action">
                                                             <a href="{{url('/')}}/elemento?cod={{$o->OpeCod}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Elementos">
-                                                                    <i class="fa fa"  style="color: yellowgreen"></i>
+                                                                    <i class="fa fa-plus" style="color: yellowgreen"></i>
                                                             </button></a>
                                                             <a href="{{route('operacao.edit', $o->OpeCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Operação">
                                                                 <i class="fa fa-edit"></i>
