@@ -80,5 +80,37 @@ function capturar() {
     $('#corpoTabela').append(linha);
     
     console.log('Cronômetro ' + contadorCaptura + " : " + tempoCapturado);
+    
 
+}
+var tomadaTempo = null;
+function getTomadaTempo(codTomadaTempo){
+    $.ajax({
+    method: 'get',
+            url: 'cronometragem/get-tomada-tempo',
+            data: 'cod='+codTomadaTempo,
+            dataType: 'json',
+            success: function (data){
+                tomadaTempo = data;
+            },
+            error: function (argument){
+            alert('Falha ao Obter Dados!');
+            }
+    });
+}
+
+var elementos = null;
+function getElementos(codOperacao){
+    $.ajax({
+    method: 'get',
+            url: 'cronometragem/get-elementos',
+            data: 'cod='+codOperacao,
+            dataType: 'json',
+            success: function (data){
+                elementos = data;
+            },
+            error: function (argument){
+            alert('Falha ao Obter Dados!');
+            }
+    });
 }

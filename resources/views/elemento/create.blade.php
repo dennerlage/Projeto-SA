@@ -13,7 +13,7 @@
                 dataType: 'html',
                 success: function (data) {
                     alert('Elemento Cadastrado com Sucesso!');
-                    location.href = '{{url('/')}}/elemento?cod={{$codigo}}';
+                    location.href = '{{url('/')}}/elemento?cod=OpeCod';
                 },
                 error: function (argument) {
                     alert('Falha ao Cadastrar Elemento!');
@@ -95,10 +95,10 @@
                                             <label for="eleporpçs">Peças</label>
                                             <input style="width: 155px" type="text" class="form-control" name="ElePorPçs" id="ElePorPçs" placeholder="Digite Peças">                                                    
                                         </div>
-                                        <input type="hidden" name="OpeCod" value="{{$codigo}}">
+                                        <input type="hidden" name="OpeCod" value="{{$_GET['cod']}}">
                                         <div style="display: flex; margin-left: 10px">
                                             <button class="btn btn-success" type="submit">Cadastrar</button>
-                                            <a href="{{url('/')}}/elemento?cod={{$codigo}}"><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
+                                            <a href="{{url('/')}}/elemento?cod={{$_GET['cod']}}"><button style="margin-left: 5px" class="btn btn-danger">Voltar</button></a>
                                         </div>
                                     </div>
                                 </form>

@@ -13,9 +13,9 @@ class ElementoController extends Controller
      */
     public function index()
     {
-        $codigo = $_GET['cod'];
+        // $codigo = $_GET['cod'];
         $elementos = \App\Elemento::where('OpeCod', '=', $_GET['cod'])->get();
-        return view('elemento.index', compact('elementos', 'codigo'));
+        return view('elemento.index', compact('elementos'));
     }
 
     /**
@@ -26,8 +26,7 @@ class ElementoController extends Controller
     public function create()
     {
         // $codigo = $id;
-        $codigo = 1;
-        return view('elemento.create', compact('codigo'));
+        return view('elemento.create');
     }
 
     /**

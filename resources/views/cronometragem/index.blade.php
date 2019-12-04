@@ -8,7 +8,7 @@
                         <div id="cronometro" class="text-center">
                             <div class="form-group"><h2 id="reloj">00 : 00 : 00</h2></div>
                             <form name="cron" action="#" >
-                                <div style="display: flex; margin-left: 255px;">
+                                <div style="display: flex; margin-left: 75px;">
                                     <input class="btn btn-dark" style="width: 100px; text-align: center" type="button" value="Iniciar" name="empieza" />
                                     <input class="btn btn-dark" style="margin-left: 10px; width: 100px; text-align: center" type="button" value="Parar" name="para" /><br/>
                                     <input class="btn btn-dark" style="margin-left: 10px; width: 100px; text-align: center" type="button" value="Continuar" name="continua" />

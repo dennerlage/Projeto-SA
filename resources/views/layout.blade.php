@@ -253,6 +253,8 @@
 
 	<!-- Atlantis JS -->
 	<script src="{{url('/')}}/js/atlantis.min.js"></script>
+        
+        <script src="{{url('/')}}/js/cronometro.js"></script>
 
 	
 </body>

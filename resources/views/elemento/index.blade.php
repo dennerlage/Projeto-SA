@@ -63,7 +63,7 @@
                             <h4 class="card-title">Elementos</h4>
                             <div class="input-group">  
 
-                                    <a href="{{route('elemento.create'}}" class="btn btn-primary btn-round ml-auto" >
+                                    <a href="" class="btn btn-primary btn-round ml-auto">
                                     <i class="fa fa-plus"></i>
                                     Adicionar Elemento
                                 </a>
@@ -97,7 +97,7 @@
                                             <td>{{$e->ElePorPçs}}</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a href="{{route('elemento.create', $e->OpeCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Adicionar Elemento">
+                                                    <a href="{{url('/')}}/elemento/create?cod={{$e->OpeCod}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Adicionar Elemento">
                                                                     <i class="fa fa-plus" style="color: yellowgreen"></i>
                                                             </button></a>
                                                     <a href="{{route('elemento.edit', $e->EleCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Elemento">
