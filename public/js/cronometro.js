@@ -1,12 +1,19 @@
 window.onload = function() {
-visor=document.getElementById("reloj"); //localizar pantalla del reloj
+visor = document.getElementById("reloj"); //localizar pantalla del reloj
 //asociar eventos a botones: al pulsar el botón se activa su función.
-document.cron.empieza.onclick = empezar; 
+
+document.cron.comecar.onclick = empezar;
 document.cron.para.onclick = parar;
 document.cron.continua.onclick = continuar;
 document.cron.reinicia.onclick = reiniciar;
 document.cron.proximo.onclick = capturar;
+
+getTomadaTempo(1);
+getElementos(1);
+
 }
+
+
 //variables de inicio:
 var marcha=0; //control del temporizador
 var cro=0; //estado inicial del cronómetro.
@@ -62,27 +69,59 @@ function reiniciar() {
          cro=0; //tiempo transcurrido a cero
          visor.innerHTML = "00 : 00 : 00"; //visor a cero
 }
-
-var contadorCaptura = 0
+var contador = 0
+var contadorElemento = 0;
 function capturar() {
+    
+    if (contadorElemento == elementos.length)
+    {
+        contadorElemento = 0;
+    }
     parar();
     tempoCapturado = $('#reloj').html();
-    contadorCaptura ++;
+    contador ++;
     reiniciar();
     empezar(); 
     
-    elemento = "Elemento de Teste"
+    elemento = elementos[contadorElemento];
     linha = "<tr>\n\
-            <td>"+contadorCaptura+"</td>\n\
-            <td>"+elemento+"</td>\n\
+            <td>"+contador+"</td>\n\
+            <td>"+elemento.EleNom+"</td>\n\
             <td>"+tempoCapturado+"</td>\n\
             </tr>";
     $('#corpoTabela').append(linha);
     
-    console.log('Cronômetro ' + contadorCaptura + " : " + tempoCapturado);
+    console.log("Cronometro " + contador + " tempo: " + tempoCapturado);
+    registrarTempo(contador, tomadaTempo.TomCod, elemento.EleCod, tempoCapturado)
+    contadorElemento++;
     
+    console.log('Cronômetro ' + contador + " : " + tempoCapturado);
+    
+    // para cronometro
+    if(contador >= (elementos.length * tomadaTempo.TomNumLei )){
+        parar();
+        $('#proximo').attr('disabled','true');
+    }
 
 }
+
+function registrarTempo(NumLeitura, CodTomada, CodElemento, Tempo){
+    $.ajax({
+    method: 'get',
+            url: 'cronometragem/guardar',
+            data: 'TomNumLei=' + NumLeitura + '&TomCod=' + CodTomada + '&TomEle=' + CodElemento + '&CroTem=' + Tempo,
+            dataType: 'json',
+            success: function (data){
+                console.log('Número da Leitura: ' + NumLeitura)
+            },
+            error: function (argument){
+            alert('Erro!');
+            }
+    });
+    
+}
+
+
 var tomadaTempo = null;
 function getTomadaTempo(codTomadaTempo){
     $.ajax({
@@ -99,7 +138,7 @@ function getTomadaTempo(codTomadaTempo){
     });
 }
 
-var elementos = null;
+var elementos = [];
 function getElementos(codOperacao){
     $.ajax({
     method: 'get',

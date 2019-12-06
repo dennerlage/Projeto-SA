@@ -9,7 +9,8 @@ class CronometragemController extends Controller
 
     public function index()
     {
-        return view('cronometragem.index');
+        $cronometragem = \App\Cronometragem::get();
+        return view('cronometragem.index', compact('cronometragem'));
     }
     
     public function getTomadaTempo(){
@@ -29,14 +30,13 @@ class CronometragemController extends Controller
     
     public function guardar(Request $request){
         $cronometragem = new \App\Cronometragem();
-        $cronometragem->CroNroLei = $request->get('CroNroLei');
-        $cronometragem->TomCod = $request->get('TomCod');
-        $cronometragem->EleCod = $request->get('EleCod');
-        $tempo = $request->get('CroTem');
+        $cronometragem->CroNroLei = $_GET['TomNumLei'];
+        $cronometragem->TomCod = $_GET['TomCod'];
+        $cronometragem->EleCod = $_GET['TomEle'];
+        $tempo = $_GET['CroTem'];
         $tempo = str_replace(' ', '', $tempo);
         $cronometragem->CroTem = $tempo;
         $cronometragem->save();
-        return true;
+        return 'true';
     }
-
 }

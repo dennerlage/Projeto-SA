@@ -97,9 +97,6 @@
                                             <td>{{$e->ElePorPçs}}</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a href="{{url('/')}}/elemento/create?cod={{$e->OpeCod}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Adicionar Elemento">
-                                                                    <i class="fa fa-plus" style="color: yellowgreen"></i>
-                                                            </button></a>
                                                     <a href="{{route('elemento.edit', $e->EleCod)}}"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Editar Elemento">
                                                             <i class="fa fa-edit"></i>
                                                      </button></a>
